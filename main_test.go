@@ -1,8 +1,13 @@
 package main
 
-import "testing"
+import (
+	"github.com/stretchr/testify/require"
+	"testing"
+)
 
 func Test_greeting(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		name *string
 	}
@@ -30,7 +35,10 @@ func Test_greeting(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			greeting(tt.args.name)
+			t.Parallel()
+
+			got := greeting(tt.args.name)
+			require.Equal(t, tt.want, got)
 		})
 	}
 }
