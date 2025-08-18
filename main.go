@@ -6,11 +6,19 @@ import (
 )
 
 func main() {
+	var name *string
+
 	if len(os.Args) > 1 {
-		fmt.Println(greeting(os.Args[1]))
+		name = &os.Args[1]
 	}
+
+	fmt.Println(greeting(name))
 }
 
-func greeting(name string) string {
-	return fmt.Sprintf("Hello, %s!", name)
+func greeting(name *string) string {
+	if name != nil {
+		return fmt.Sprintf("Hello, %s!", *name)
+	}
+
+	return fmt.Sprintf("Hello!")
 }

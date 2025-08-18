@@ -4,7 +4,7 @@ import "testing"
 
 func Test_greeting(t *testing.T) {
 	type args struct {
-		name string
+		name *string
 	}
 
 	tests := []struct {
@@ -13,11 +13,18 @@ func Test_greeting(t *testing.T) {
 		want string
 	}{
 		{
-			name: "success",
+			name: "with name",
 			args: args{
-				name: "John",
+				name: pointer("John"),
 			},
 			want: "Hello, John!",
+		},
+		{
+			name: "without name",
+			args: args{
+				name: nil,
+			},
+			want: "Hello!",
 		},
 	}
 
@@ -26,4 +33,8 @@ func Test_greeting(t *testing.T) {
 			greeting(tt.args.name)
 		})
 	}
+}
+
+func pointer[T any](value T) *T {
+	return &value
 }
